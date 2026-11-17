@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SyntaxMemo</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="popup-header">
+      <div class="header-row">
+        <h1>SyntaxMemo</h1>
+        <button id="open-dashboard-btn" class="btn btn-sm">Dashboard</button>
+      </div>
+    </header>
+
+    <div class="search-section">
+      <input
+        type="text"
+        id="search"
+        placeholder="Search snippets..."
+        autocomplete="off"
+        spellcheck="false"
+      >
+    </div>
+
+    <main class="popup-main">
+      <div id="snippet-list" class="snippet-list"></div>
+
+      <div id="empty-message" class="empty-state">
+        <p>No snippets saved yet.</p>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

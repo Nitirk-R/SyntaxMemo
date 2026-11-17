@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SyntaxMemo</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Top Application Bar -->
+    <header class="app-header">
+      <div class="header-left">
+        <h1>SyntaxMemo</h1>
+        <span id="snippet-count-badge" class="header-count">0 snippets</span>
+      </div>
+      <div class="header-right">
+        <button id="header-new-btn" class="btn" title="Create a new snippet">New Snippet</button>
+      </div>
+    </header>
+
+    <!-- Main Two-Pane Container -->
+    <main class="main-content">
+      <!-- Left Pane: Sidebar / Search & Snippet List -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <!-- Search input -->
+          <div class="search-box">
+            <input
+              type="text"
+              id="dashboard-search"
+              placeholder="Search snippets..."
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button id="clear-search-btn" class="clear-search-btn hidden" title="Clear search">&times;</button>
+          </div>
+
+          <!-- Language Navigation -->
+          <nav id="language-filter-bar" class="language-filter-bar" aria-label="Filter by language">
+            <!-- Filter items populated dynamically by dashboard.js -->
+          </nav>
+        </div>
+
+        <div id="snippet-list" class="snippet-list">
+          <!-- Snippet rows populated dynamically by dashboard.js -->
+        </div>
+
+        <!-- Plain Empty States -->
+        <div id="empty-list-message" class="empty-state hidden">
+          <p>No snippets saved yet.</p>
+          <p class="empty-hint">Use the right-click menu on a webpage or click "New Snippet".</p>
+        </div>
+
+        <div id="filter-empty-message" class="empty-state hidden">
+          <p>No snippets match this filter.</p>
+          <button id="reset-filters-btn" class="btn btn-sm">Reset filter</button>
+        </div>
+      </aside>
+
+      <!-- Right Pane: Detail View / Editor -->
+      <section class="detail-pane" id="detail-pane">
+        <!-- 1. Placeholder when no snippet is selected -->
+        <div id="detail-empty" class="detail-empty">
+          <p>Select a snippet from the list, or create a new one.</p>
+        </div>
+
+        <!-- 2. View Mode Container -->
+        <article id="detail-content" class="detail-content hidden">
+          <!-- Inline Delete Confirmation -->
+          <div id="delete-confirm-banner" class="confirm-banner hidden">
+            <span>Delete this snippet? This action cannot be undone.</span>
+            <div class="confirm-actions">
+              <button id="confirm-delete-btn" class="btn btn-danger">Delete</button>
+              <button id="cancel-delete-btn" class="btn">Cancel</button>
+            </div>
+          </div>
+
+          <!-- Clean Detail Header (No prominent action buttons) -->
+          <header class="detail-header">
+            <div class="detail-heading">
+              <h2 id="detail-title"></h2>
+              <div class="detail-meta">
+                <span id="detail-language" class="meta-lang hidden"></span>
+                <span id="detail-tags" class="meta-tags hidden"></span>
+              </div>
+            </div>
+          </header>
+
+          <!-- Code Section -->
+          <div class="code-section">
+            <pre class="code-block"><code id="detail-code"></code></pre>
+          </div>
+
+          <!-- Notes Section -->
+          <div class="notes-section">
+            <h3>Notes</h3>
+            <div id="detail-notes" class="notes-body"></div>
+          </div>
+
+          <!-- Source, Created Timestamp & Unobtrusive Footer Actions -->
+          <footer class="detail-footer">
+            <div class="meta-line">
+              <span class="meta-label">Source:</span>
+              <span id="detail-source"></span>
+            </div>
+            <div class="meta-line">
+              <span class="meta-label">Created:</span>
+              <span id="detail-created"></span>
+            </div>
+            <!-- Quiet, unobtrusive text actions -->
+            <div class="footer-actions">
+              <button id="copy-code-btn" class="action-link" title="Copy code">
+                <span id="copy-btn-text">Copy</span>
+              </button>
+              <span class="meta-sep">&middot;</span>
+              <button id="edit-snippet-btn" class="action-link" title="Edit snippet">Edit</button>
+              <span class="meta-sep">&middot;</span>
+              <button id="delete-snippet-btn" class="action-link action-danger" title="Delete snippet">Delete</button>
+            </div>
+          </footer>
+        </article>
+
+        <!-- 3. Editor Mode Container (Create / Edit) -->
+        <article id="editor-container" class="editor-container hidden">
+          <header class="editor-header">
+            <h2 id="editor-heading">Edit Snippet</h2>
+            <div class="editor-actions">
+              <button id="save-editor-btn" class="btn btn-primary">Save Snippet</button>
+              <button id="cancel-editor-btn" class="btn">Cancel</button>
+            </div>
+          </header>
+
+          <div id="editor-error" class="editor-error hidden">Code is required to save a snippet.</div>
+
+          <form id="snippet-form" class="snippet-form" autocomplete="off">
+            <div class="form-grid-2">
+              <div class="form-field">
+                <label for="editor-title">Title</label>
+                <input type="text" id="editor-title" placeholder="Optional title" spellcheck="false">
+              </div>
+
+              <div class="form-field">
+                <label for="editor-language">Language</label>
+                <input type="text" id="editor-language" class="input-mono" placeholder="" spellcheck="false">
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="editor-code">Code <span class="required">*</span></label>
+              <textarea id="editor-code" class="textarea-code" rows="12" spellcheck="false" required></textarea>
+            </div>
+
+            <div class="form-field">
+              <label for="editor-tags">Tags</label>
+              <input type="text" id="editor-tags" placeholder="" spellcheck="false">
+            </div>
+
+            <div class="form-field">
+              <label for="editor-notes">Notes</label>
+              <textarea id="editor-notes" rows="4" placeholder="Personal notes or explanation"></textarea>
+            </div>
+          </form>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>
